@@ -79,7 +79,7 @@ def main():
         if len(text_files) == 1:
             with open(text_files[0]) as f:
                 lines = f.read().splitlines()
-                for i in xrange(len(lines)):
+                for i in range(len(lines)):
                     texts[str(i)] = lines[i]
         # NOTE(mikhaildubov): If there are multiple text files, read them one-by-one.
         else:

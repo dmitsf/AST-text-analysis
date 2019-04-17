@@ -27,7 +27,7 @@ class EnhancedAnnotatedSuffixArray(base.AST):
         if synonimizer:
             synonyms = synonimizer.get_synonyms()
             query_words = common_utils.tokenize(query)
-            for i in xrange(len(query_words)):
+            for i in range(len(query_words)):
                 query_words[i] = synonyms[query_words[i]] + [query_words[i]]
             possible_queries = map(lambda words: "".join(words),
                                    itertools.product(*query_words))
@@ -65,7 +65,7 @@ class EnhancedAnnotatedSuffixArray(base.AST):
         last_interval = None
         n = len(self.suftab)
         stack = [[0, 0, None, []]]  # <l, i, j, children>
-        for i in xrange(1, n):
+        for i in range(1, n):
             lb = i - 1
             while self.lcptab[i] < stack[-1][0]:
                 stack[-1][2] = i - 1
@@ -95,7 +95,7 @@ class EnhancedAnnotatedSuffixArray(base.AST):
 
         root_interval = (0, 0, n - 1)
     
-        for suffix_start in xrange(len(query)):
+        for suffix_start in range(len(query)):
             
             suffix = query[suffix_start:]
             suffix_score = 0
@@ -146,21 +146,21 @@ class EnhancedAnnotatedSuffixArray(base.AST):
         Kärkkäinen & Sanders (2003).
         """
         n = len(string)
-        string += (unichr(1) * 3)
+        string += (chr(1) * 3)
         suftab = np.zeros(n, dtype=np.int)
         alpha = sorted(set(string))
         self._kark_sort(string, suftab, n, alpha)
         return suftab
 
     def _kark_sort(self, s, SA, n, alpha):
-        n0 = (n + 2) / 3
-        n1 = (n + 1) / 3
-        n2 = n / 3
+        n0 = (n + 2) // 3
+        n1 = (n + 1) // 3
+        n2 = n // 3
         n02 = n0 + n2
 
         SA12 = [0] * (n02 + 3)
         SA0 = [0] * n0
-        s12 = [i for i in xrange(n + n0 - n1) if i % 3 != 0] + [0, 0, 0]
+        s12 = [i for i in range(n + n0 - n1) if i % 3 != 0] + [0, 0, 0]
 
         self._radixpass(s12, SA12, s[2:], n02, alpha)
         self._radixpass(SA12, s12, s[1:], n02, alpha)
@@ -169,7 +169,7 @@ class EnhancedAnnotatedSuffixArray(base.AST):
         name = 0
         c0, c1, c2 = -1, -1, -1
         array_name = [0]
-        for i in xrange(n02):
+        for i in range(n02):
             if s[SA12[i]] != c0 or s[SA12[i] + 1] != c1 or s[SA12[i] + 2] != c2:
                 name += 1
                 array_name.append(name)
@@ -177,19 +177,19 @@ class EnhancedAnnotatedSuffixArray(base.AST):
                 c1 = s[SA12[i]+1]
                 c2 = s[SA12[i]+2]
             if SA12[i] % 3 == 1:
-                s12[SA12[i] / 3] = name
+                s12[SA12[i] // 3] = name
             else:
-                s12[SA12[i] / 3 + n0] = name
+                s12[SA12[i] // 3 + n0] = name
 
         if name < n02:
             self._kark_sort(s12, SA12, n02, array_name)
-            for i in xrange(n02): 
+            for i in range(n02): 
                 s12[SA12[i]] = i+1
         else:
-            for i in xrange(n02): 
+            for i in range(n02): 
                 SA12[s12[i]-1] = i
 
-        s0 = [SA12[i] * 3 for i in xrange(n02) if SA12[i] < n0]
+        s0 = [SA12[i] * 3 for i in range(n02) if SA12[i] < n0]
 
         self._radixpass(s0, SA0, s, n0, alpha)
   
@@ -200,9 +200,9 @@ class EnhancedAnnotatedSuffixArray(base.AST):
             j = SA0[p] if p < n0 else 0
  
             if SA12[t] < n0:
-                test = (s12[SA12[t]+n0] <= s12[j/3]) if(s[i]==s[j]) else (s[i] < s[j])
+                test = (s12[SA12[t]+n0] <= s12[j//3]) if(s[i]==s[j]) else (s[i] < s[j])
             elif(s[i]==s[j]) :
-                test = s12[SA12[t]-n0+1] <= s12[j/3 + n0] if(s[i+1]==s[j+1]) else s[i+1] < s[j+1]
+                test = s12[SA12[t]-n0+1] <= s12[j//3 + n0] if(s[i+1]==s[j+1]) else s[i+1] < s[j+1]
             else:
                 test = s[i] < s[j]
 
@@ -231,14 +231,14 @@ class EnhancedAnnotatedSuffixArray(base.AST):
         c = {}
         for letter in alpha:
             c[letter] = 0
-        for i in xrange(n):
+        for i in range(n):
             c[r[a[i]]] += 1
 
         total = 0
         for letter in alpha:
             freq, c[letter] = c[letter], total
             total += freq
-        for i in xrange(n):
+        for i in range(n):
             b[c[r[a[i]]]] = a[i]
             c[r[a[i]]] += 1
 
@@ -251,11 +251,11 @@ class EnhancedAnnotatedSuffixArray(base.AST):
         """
         n = len(suftab)
         rank = [0] * n
-        for i in xrange(n):
+        for i in range(n):
             rank[suftab[i]] = i
         lcptab = np.zeros(n, dtype=np.int)
         h = 0
-        for i in xrange(n):
+        for i in range(n):
             if rank[i] >= 1:
                 j = suftab[rank[i] - 1]
                 while string[i + h] == string[j + h]:
@@ -275,7 +275,7 @@ class EnhancedAnnotatedSuffixArray(base.AST):
         n = len(lcptab)
         childtab_up = np.zeros(n, dtype=np.int)  # Zeros / -1 ?
         childtab_down = np.zeros(n, dtype=np.int)
-        for i in xrange(n):
+        for i in range(n):
             while lcptab[i] < lcptab[stack[-1]]:
                 last_index = stack.pop()
                 if lcptab[i] <= lcptab[stack[-1]] and lcptab[stack[-1]] != lcptab[last_index]:
@@ -294,7 +294,7 @@ class EnhancedAnnotatedSuffixArray(base.AST):
         stack = [0]
         n = len(lcptab)
         childtab_next_l_index = np.zeros(n, dtype=np.int)  # Zeros / -1 ?
-        for i in xrange(n):
+        for i in range(n):
             while lcptab[i] < lcptab[stack[-1]]:
                 stack.pop()
             if lcptab[i] == lcptab[stack[-1]]:

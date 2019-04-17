@@ -24,7 +24,7 @@ class EastException(Exception):
         if not message:
             try:
                 message = self.msg_fmt % kwargs
-            except KeyError:
+            except KeyError as e:
                 exc_info = sys.exc_info()
                 # kwargs doesn't match a variable in the message
                 # log the issue and the kwargs
@@ -32,7 +32,7 @@ class EastException(Exception):
                 LOG.debug(msg % kwargs, exc_info=exc_info)
 
                 if CONF.fatal_exception_format_errors:
-                    raise exc_info[0], exc_info[1], exc_info[2]
+                    raise e
                 else:
                     # at least get the core message out if something happened
                     message = self.msg_fmt

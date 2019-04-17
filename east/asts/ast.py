@@ -8,7 +8,6 @@ from east import consts
 
 
 class AnnotatedSuffixTree(base.AST):
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self, strings_collection):
         super(AnnotatedSuffixTree, self).__init__(strings_collection)
@@ -35,7 +34,7 @@ class AnnotatedSuffixTree(base.AST):
         suffix_scores = {}
     
         # For each suffix of the string:
-        for suffix_start in xrange(len(query)):
+        for suffix_start in range(len(query)):
             
             suffix = query[suffix_start:]
             suffix_score = 0

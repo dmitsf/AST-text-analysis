@@ -36,5 +36,5 @@ def make_unique_endings(strings_collection):
         # NOTE(msdubov): a trick to handle 'narrow' python installation issues.
         hex_code = hex(consts.String.UNICODE_SPECIAL_SYMBOLS_START+i)
         hex_code = r"\U" + "0" * (8 - len(hex_code) + 2) + hex_code[2:]
-        res.append(strings_collection[i] + hex_code.decode("unicode-escape"))
+        res.append(strings_collection[i] + hex_code.encode('latin-1').decode("unicode-escape"))
     return res

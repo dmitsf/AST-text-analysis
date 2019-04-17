@@ -20,9 +20,9 @@ def main(args):
 
     for ast_algorithm in ["ast_naive", "ast_linear", "easa"]:
         print ast_algorithm
-        for n in xrange(n_from, n_to + 1, n_step):
+        for n in range(n_from, n_to + 1, n_step):
             t = 0
-            for _ in xrange(repeats):
+            for _ in range(repeats):
                 strings_collection = utils.worst_case_strings_collection(m, n)
                 start = time.clock()
                 base.AST.get_ast(strings_collection, ast_algorithm)

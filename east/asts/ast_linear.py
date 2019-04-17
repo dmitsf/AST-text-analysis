@@ -31,7 +31,7 @@ class LinearAnnotatedSuffixTree(ast.AnnotatedSuffixTree):
         root.suffix_link = root
         root._arc = (0,-1,0)
         # For constant updating of all leafs, see [Gusfield {RUS}, p. 139]
-        root._e = [0 for _ in xrange(len(strings_collection))]
+        root._e = [0 for _ in range(len(strings_collection))]
         
         
         def _ukkonen_first_phases(string_ind):
@@ -81,7 +81,7 @@ class LinearAnnotatedSuffixTree(ast.AnnotatedSuffixTree):
             suffix_link_source_node = None
             path_str_ind, path_substr_start, path_substr_end = starting_path
             # Continuations [starting_continuation..(i+1)]
-            for continuation in xrange(starting_continuation, phase+1):
+            for continuation in range(starting_continuation, phase+1):
                 # Go up to the first node with suffix link [no more than 1 pass]
                 if continuation > starting_continuation:
                     path_str_ind, path_substr_start, path_substr_end = 0, 0, 0
@@ -170,12 +170,12 @@ class LinearAnnotatedSuffixTree(ast.AnnotatedSuffixTree):
             
             return starting_node, starting_path, starting_continuation
                         
-        for m in xrange(len(strings_collection)):
+        for m in range(len(strings_collection)):
             # Check for phases 1..x that are already in tree
             starting_phase, starting_node, starting_path = _ukkonen_first_phases(m)
             starting_continuation = 0
             # Perform phases (x+1)..n explicitly
-            for phase in xrange(starting_phase, len(strings_collection[m])):
+            for phase in range(starting_phase, len(strings_collection[m])):
                 starting_node, starting_path, starting_continuation = \
                     _ukkonen_phase(m, phase, starting_node, starting_path, starting_continuation)
                     
@@ -185,7 +185,7 @@ class LinearAnnotatedSuffixTree(ast.AnnotatedSuffixTree):
         ############################################################
         
         # 3. Delete degenerate first-level children
-        for k in root.children.keys():
+        for k in list(root.children.keys()):
             (ss, si, se) = root.children[k].arc()
             if (se - si == 1 and
                 ord(strings_collection[ss][si]) >= consts.String.UNICODE_SPECIAL_SYMBOLS_START):

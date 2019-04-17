@@ -25,11 +25,11 @@ class NaiveAnnotatedSuffixTree(ast.AnnotatedSuffixTree):
         root.strings_collection = strings_collection
         
         # For each string in the collection...
-        for string_ind in xrange(len(strings_collection)):
+        for string_ind in range(len(strings_collection)):
             string = strings_collection[string_ind]
             # For each suffix of that string...
             # (do not handle unique last characters as suffixes)
-            for suffix_start in xrange(len(string)-1):
+            for suffix_start in range(len(string)-1):
                 suffix = string[suffix_start:]
                 # ... first try to find maximal matching path
                 node = root

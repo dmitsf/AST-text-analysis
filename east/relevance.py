@@ -38,7 +38,7 @@ class ASTRelevanceMeasure(RelevanceMeasure):
         self.asts = []
         total_texts = len(texts)
 
-        for i in xrange(total_texts):
+        for i in range(total_texts):
             # NOTE(mikhaildubov): utils.text_to_strings_collection()
             #                     does utils.prepare_text() as well.
             self.asts.append(base.AST.get_ast(
@@ -68,7 +68,7 @@ class CosineRelevanceMeasure(RelevanceMeasure):
             self.stemmer = snowball.SnowballStemmer(self.language)
         raw_tokens = []
         total_texts = len(texts)
-        for i in xrange(total_texts):
+        for i in range(total_texts):
             raw_tokens.append(utils.tokenize_and_filter(utils.prepare_text(texts[i])))
             logging.progress("Preparing texts", i + 1, total_texts)
 
@@ -91,7 +91,7 @@ class CosineRelevanceMeasure(RelevanceMeasure):
             #                     auto language detection here?
             stemmed_tokens = []
             total_texts = len(tokens_in_texts)
-            for i in xrange(total_texts):
+            for i in range(total_texts):
                 stemmed_tokens.append([self.stemmer.stem(token) for token in tokens_in_texts[i]])
                 logging.progress("Stemming tokens in texts", i + 1, total_texts)
             return stemmed_tokens
@@ -106,16 +106,16 @@ class CosineRelevanceMeasure(RelevanceMeasure):
         # Calculate the inverted term index to facilitate further calculations
         # This is a mapping from a token to its position in the vector
         term_index = {}
-        for i in xrange(len(self.terms)):
+        for i in range(len(self.terms)):
             term_index[self.terms[i]] = i
 
         total_texts = len(tokens_in_texts)
         terms_count = len(self.terms)
 
         # Calculate TF and IDF
-        tf = [np.zeros(terms_count) for _ in xrange(total_texts)]
+        tf = [np.zeros(terms_count) for _ in range(total_texts)]
         idf_per_ferm = defaultdict(int)
-        for i in xrange(total_texts):
+        for i in range(total_texts):
             logging.progress("Processing texts for TF-IDF", i + 1, total_texts)
             # NOTE(mikhaildubov): For TF, we want to count each term as many time as it appears
             for term in tokens_in_texts[i]:

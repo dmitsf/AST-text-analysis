@@ -29,7 +29,6 @@ class EnumMixin(object):
 
 
 def prepare_text(text):
-    text = unicode(text.decode('utf-8', errors='replace'))
     text = text.upper()
     return text
 
@@ -60,13 +59,13 @@ def text_to_strings_collection(text, words=3):
     
     text = prepare_text(text)
     strings_collection = tokenize(text)
-    strings_collection = filter(lambda s: len(s) > 2 and not s.isdigit(), strings_collection)
+    strings_collection = [s for s in strings_collection if len(s) > 2 and not s.isdigit()]
         
     i = 0
     strings_collection_grouped = []
     while i < len(strings_collection):
         group = ''
-        for j in xrange(words):
+        for j in range(words):
             if i + j < len(strings_collection):
                 group += strings_collection[i+j]
         strings_collection_grouped.append(group)
@@ -84,7 +83,7 @@ def text_collection_to_string_collection(text_collection, words=3):
 
 
 def random_string(length):
-    string = "".join([unichr(ord("A") + random.randint(0, 25)) for _ in xrange(length - 2)])
+    string = "".join([chr(ord("A") + random.randint(0, 25)) for _ in range(length - 2)])
     return string
 
 
