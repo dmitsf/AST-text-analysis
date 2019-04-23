@@ -19,7 +19,7 @@ def main(args):
     repeats = 5  # for each n
 
     for ast_algorithm in ["ast_naive", "ast_linear", "easa"]:
-        print ast_algorithm
+        print(ast_algorithm)
         for n in range(n_from, n_to + 1, n_step):
             t = 0
             for _ in range(repeats):
@@ -29,7 +29,7 @@ def main(args):
                 t += time.clock() - start
             gc.collect()
             print("%i\t%.2f" % (n, t / repeats))
-        print ""
+        print("")
 
 
 if __name__ == '__main__':

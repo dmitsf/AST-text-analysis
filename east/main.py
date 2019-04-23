@@ -108,7 +108,7 @@ def main():
         if subcommand == "table":
 
             keyphrases_table = applications.keyphrases_table(
-                                    keyphrases, texts, similarity_measure_factory,
+                                    keyphrases, texts, similarity_measure,
                                     synonimizer, language)
 
             opts.setdefault("-f", "xml")  # Table output format ("csv" is the other option)
@@ -116,9 +116,9 @@ def main():
 
             try:
                 res = formatting.format_table(keyphrases_table, table_format)
-                print res
+                print(res)
             except Exception as e:
-                print e
+                print(e)
                 return 1
 
         elif subcommand == "graph":
@@ -137,17 +137,17 @@ def main():
 
             try:
                 res = formatting.format_graph(graph, graph_format)
-                print res
+                print(res)
             except Exception as e:
-                print e
+                print(e)
                 return 1
 
         else:
-            print "Invalid subcommand: '%s'. Please use one of: 'table', 'graph'." % subcommand
+            print("Invalid subcommand: '%s'. Please use one of: 'table', 'graph'." % subcommand)
             return 1
 
     else:
-        print "Invalid command: '%s'. Please use one of: 'keyphrases'." % command
+        print("Invalid command: '%s'. Please use one of: 'keyphrases'." % command)
         return 1
 
 

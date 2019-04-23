@@ -136,7 +136,7 @@ class SynonymExtractor(object):
     def T(self, w):
         if w in self.T_memoized:
             return self.T_memoized[w]
-        res = set(filter(lambda (r, w_): self.I(w, r, w_) > 0,
+        res = set(filter(lambda r, w_: self.I(w, r, w_) > 0,
                          itertools.product(self.relations, self.words)))
         self.T_memoized[w] = res
         return res

@@ -29,7 +29,7 @@ def main(args):
 
     repeats = 2  # for each n
 
-    print ast_algorithm
+    print(ast_algorithm)
     for n in range(n_from, n_to + 1, n_step):
         asts = []
         for _ in range(repeats):
@@ -40,7 +40,7 @@ def main(args):
         for ast in asts:
             del ast
         gc.collect()
-    print ""
+    print("")
 
 
 if __name__ == '__main__':

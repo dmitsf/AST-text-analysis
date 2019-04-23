@@ -17,13 +17,13 @@ class ImmutableMixin(object):
 
     def __setattr__(self, key, value):
         if self._inited:
-            raise exceptions.ImmutableException()
+            raise NotImplementedError
         super(ImmutableMixin, self).__setattr__(key, value)
 
 
 class EnumMixin(object):
     def __iter__(self):
-        for k, v in itertools.imap(lambda x: (x, getattr(self, x)), dir(self)):
+        for k, v in map(lambda x: (x, getattr(self, x)), dir(self)):
             if not k.startswith('_'):
                 yield v
 
@@ -100,7 +100,7 @@ def itersubclasses(cls, _seen=None):
     """Generator over all subclasses of a given class in depth first order."""
 
     if not isinstance(cls, type):
-        raise TypeError(_('itersubclasses must be called with '
+        raise TypeError(('itersubclasses must be called with '
                           'new-style classes, not %.100r') % cls)
     _seen = _seen or set()
     try:
@@ -111,8 +111,8 @@ def itersubclasses(cls, _seen=None):
         if sub not in _seen:
             _seen.add(sub)
             yield sub
-            for sub in itersubclasses(sub, _seen):
-                yield sub
+            for sub_ in itersubclasses(sub, _seen):
+                yield sub_
 
 
 def import_modules_from_package(package):

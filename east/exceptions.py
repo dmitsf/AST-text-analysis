@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*
+import logging
 
 from east import consts
 
@@ -25,17 +26,14 @@ class EastException(Exception):
             try:
                 message = self.msg_fmt % kwargs
             except KeyError as e:
-                exc_info = sys.exc_info()
                 # kwargs doesn't match a variable in the message
                 # log the issue and the kwargs
-                msg = "kwargs don't match in string format operation: %s"
-                LOG.debug(msg % kwargs, exc_info=exc_info)
 
-                if CONF.fatal_exception_format_errors:
-                    raise e
-                else:
-                    # at least get the core message out if something happened
-                    message = self.msg_fmt
+                # if CONF.fatal_exception_format_errors:
+                #     raise e
+                # else:
+                #     # at least get the core message out if something happened
+                message = self.msg_fmt
 
         super(EastException, self).__init__(message)
 
@@ -43,7 +41,7 @@ class EastException(Exception):
         if self.__class__.__name__.endswith('_Remote'):
             return self.args[0]
         else:
-            return unicode(self)
+            return self
 
 
 class NotFoundException(EastException):

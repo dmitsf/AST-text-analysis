@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 
 
-def format_table(table, format):
+def format_table(keyphrases_table, format):
     if format == "xml":
         return table2xml(keyphrases_table)
     elif format == "csv":

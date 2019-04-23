@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*
 
 import itertools
-import sys
 
 from east import consts
 from east import logging
 from east import relevance
 from east import utils
+
 
 def keyphrases_table(keyphrases, texts, similarity_measure=None, synonimizer=None,
                      language=consts.Language.ENGLISH):
@@ -44,7 +44,7 @@ def keyphrases_table(keyphrases, texts, similarity_measure=None, synonimizer=Non
         if not keyphrase:
             continue
         res[keyphrase] = {}
-        for j in xrange(len(text_collection)):
+        for j in range(len(text_collection)):
             i += 1
             logging.progress("Calculating matching scores", i, total_scores)
             res[keyphrase][text_titles[j]] = similarity_measure.relevance(
