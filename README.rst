@@ -3,7 +3,6 @@ EAST
 
 **EAST** stands for the *Enhanced Annotated Suffix Tree* method for text analysis.
 
-
 Installation
 ------------
 
