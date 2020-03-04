@@ -5,7 +5,7 @@ import numpy as np
 from east.asts import base
 
 
-def clear_text(text, lowerize=False):
+def clear_text(text, lowerize=True):
 
     pat = re.compile(r'[^A-Za-z0-9 \-\n\r.,;!?А-Яа-я]+')
     cleared_text = re.sub(pat, ' ', text)
@@ -36,8 +36,16 @@ def get_corelevance_matrix(texts):
         
     return matrix
 
-        
+
+def save_matrix(matrix):
+    np.savetxt("filename", matrix)
+
+
 if __name__ == "__main__":
-    print(get_corelevance_matrix(["Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
-                                  "qui dolorem ipsum, quia dolor sit, amet!",
-                                  "lorem ipsum"]))
+    p = get_corelevance_matrix(["Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+                                "qui dolorem ipsum, quia dolor sit, amet!",
+                                "lorem ipsum"])
+
+    print(p)
+
+    save_matrix(p)
