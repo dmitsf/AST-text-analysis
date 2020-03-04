@@ -6,11 +6,11 @@ EAST
 Installation
 ------------
 
-To install EAST, run:
+To install EAST, run from the project directory:
 
 ::
 
-    $ pip install EAST
+    $ python3 setup.py install
 
 This may require admin permissions on your machine (and should then be run with *sudo*).
 
