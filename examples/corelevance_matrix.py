@@ -42,6 +42,7 @@ def save_matrix(matrix):
 
 
 if __name__ == "__main__":
+    # add relevance calc.
     p = get_corelevance_matrix(["Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
                                 "qui dolorem ipsum, quia dolor sit, amet!",
                                 "lorem ipsum"])
