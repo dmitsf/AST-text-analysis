@@ -42,10 +42,13 @@ def save_matrix(matrix):
 
 
 if __name__ == "__main__":
-    p = get_corelevance_matrix(["Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
-                                "qui dolorem ipsum, quia dolor sit, amet!",
-                                "lorem ipsum"])
 
-    print(p)
+    texts = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+             "qui dolorem ipsum, quia dolor sit, amet!",
+             "lorem ipsum"]
+
+    matrix = get_corelevance_matrix(texts)
+
+    print(matrix)
 
     save_matrix(p)
